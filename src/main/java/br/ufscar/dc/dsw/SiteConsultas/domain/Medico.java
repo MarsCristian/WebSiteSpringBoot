@@ -74,4 +74,12 @@ public class Medico extends AbstractEntity<Long> {
     public void setEspecialidade(String especialidade) {
         this.especialidade = especialidade;
     }
+
+    public Medico(String email, String senha, String crm, String nome, String especialidade) {
+        this.email = email;
+        this.senha = senha;
+        this.crm = crm;
+        this.nome = nome;
+        this.especialidade = especialidade;
+    }
 }
