@@ -11,12 +11,12 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <i class="oi oi-caret-right"></i>
-                    <span>Lista de Pacientes</span>
+                    <span th:text="#{paciente.listar.label}">Lista de Pacientes</span>
                 </li>
             </ul>
             <a class="btn btn-primary btn-md" th:href="@{/pacientes/cadastrar}" role="button">
                 <span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
-                <span>Nova Paciente</span>
+                <span th:text="#{paciente.cadastrar.label}">Novo Paciente</span>
             </a>
         </div>
     </nav>
@@ -30,12 +30,12 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>CPF</th>
-                    <th>Nome</th>
-                    <th>Telefone</th>
-                    <th>Gênero</th>
-                    <th>Data de Nascimento</th>
-                    <th>Ação</th>
+                    <th th:text="#{paciente.cpf.label}">CPF</th>
+                    <th th:text="#{paciente.nome.label}">Nome</th>
+                    <th th:text="#{paciente.telefone.label}">Telefone</th>
+                    <th th:text="#{paciente.sexo.label}">Gênero</th>
+                    <th th:text="#{paciente.dataNascimento.label}">Data de Nascimento</th>
+                    <th th:text="#{acao.label}">Ação</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -50,7 +50,7 @@
                     <td colspan="2">
                         <a class="btn btn-info btn-sm" th:href="@{/pacientes/editar/{id} (id=${paciente.id}) }"
                            role="button">
-                            <span class="oi oi-brush" title="Editar" aria-hidden="true"> </span>
+                            <span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
                         </a>
                         <button
                                 th:id="${'btn_pacientes/excluir/' + paciente.id}"

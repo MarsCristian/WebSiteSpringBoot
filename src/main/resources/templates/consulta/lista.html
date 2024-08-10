@@ -11,12 +11,12 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <i class="oi oi-caret-right"></i>
-                    <span>Lista de consultas</span>
+                    <span th:text="#{consulta.listar.label}">Lista de Consultas</span>
                 </li>
             </ul>
             <a class="btn btn-primary btn-md" th:href="@{/consultas/cadastrar}" role="button">
                 <span class="oi oi-plus" title="Cadastro" aria-hidden="true"></span>
-                <span>Nova consulta</span>
+                <span th:text="#{consulta.cadastrar.label}">Nova Consulta</span>
             </a>
         </div>
     </nav>
@@ -30,10 +30,10 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Data</th>
-                    <th>Medico</th>
-                    <th>Paciente</th>
-                    <th>Ação</th>
+                    <th th:text="#{consulta.dataHora.label}">Data</th>
+                    <th th:text="#{consulta.medico.label}">Médico</th>
+                    <th th:text="#{consulta.paciente.label}">Paciente</th>
+                    <th th:text="#{acao.label}">Ação</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -46,13 +46,15 @@
                     <td colspan="2">
                         <a class="btn btn-info btn-sm" th:href="@{/consultas/editar/{id} (id=${consulta.id}) }"
                            role="button">
-                            <span class="oi oi-brush" title="Editar" aria-hidden="true"> </span>
+                            <span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+                            <span th:text="#{link.editar.label}">Editar</span>
                         </a>
                         <button
                                 th:id="${'btn_consultas/excluir/' + consulta.id}"
                                 type="button" class="btn btn-danger btn-sm"
                                 data-toggle="modal" data-target="#myModal">
                             <span class="oi oi-circle-x" title="Excluir" aria-hidden="true"></span>
+                            <span th:text="#{link.excluir.label}">Excluir</span>
                         </button>
                     </td>
                 </tr>

@@ -23,27 +23,27 @@ public class Paciente extends AbstractEntity<Long> {
     @Column(nullable = false, length = 60)
     private String senha;
 
-    @NotBlank(message = "{NotNull.paciente.cpf}")
+    @NotBlank(message = "{NotBlank.paciente.cpf}")
     @Size(max = 60)
     @Column(nullable = false, length = 60)
     private String cpf;
 
-    @NotBlank(message = "{NotNull.paciente.nome}")
+    @NotBlank(message = "{NotBlank.paciente.nome}")
     @Size(max = 60)
     @Column(nullable = false, length = 60)
     private String nome;
 
-    @NotBlank(message = "{NotNull.paciente.telefone}")
+    @NotBlank(message = "{NotBlank.paciente.telefone}")
     @Size(max = 60)
     @Column(nullable = false, length = 60)
     private String telefone;
 
-    @NotBlank(message = "{NotNull.paciente.sexo}")
+    @NotBlank(message = "{NotBlank.paciente.sexo}")
     @Size(max = 60)
     @Column(nullable = false, length = 60)
     private String sexo;
 
-    @NotBlank(message = "{NotNull.paciente.dataNascimento}")
+    @NotBlank(message = "{NotBlank.paciente.dataNascimento}")
     @Size(max = 60)
     @Column(nullable = false, length = 60)
     private String dataNascimento;

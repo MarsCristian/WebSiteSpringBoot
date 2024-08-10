@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<html   layout:decorate="~{layout}"
-        lang="pt-br">
+<html   layout:decorate="~{layout}">
 <head>
-    <meta charset="UTF-8"/>
 </head>
 <body>
 
@@ -10,8 +8,8 @@
     <section class="layout-content" layout:fragment="corpo">
 
         <div class="container" style="text-align: center;">
-            <h1>Site Consultas</h1>
-            <img alt="" th:src="@{/image/image.jpeg}">
+            <h1 th:text="#{title.label}">Site Consultas</h1>
+            <img alt="" th:src="@{/image/image.jpg}" style="width:500px;">
         </div>
 
     </section>

@@ -20,17 +20,17 @@ public class Medico extends AbstractEntity<Long> {
     @Column(nullable = false, length = 60)
     private String senha;
 
-    @NotBlank(message = "{NotNull.medico.crm}")
+    @NotBlank(message = "{NotBlank.medico.crm}")
     @Size(max = 60)
     @Column(nullable = false, length = 60)
     private String crm;
 
-    @NotBlank(message = "{NotNull.medico.nome}")
+    @NotBlank(message = "{NotBlank.medico.nome}")
     @Size(max = 60)
     @Column(nullable = false, length = 60)
     private String nome;
 
-    @NotBlank(message = "{NotNull.medico.especialidade}")
+    @NotBlank(message = "{NotBlank.medico.especialidade}")
     @Size(max = 60)
     @Column(nullable = false, length = 60)
     private String especialidade;

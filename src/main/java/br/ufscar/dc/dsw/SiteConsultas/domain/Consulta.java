@@ -8,16 +8,16 @@ import java.time.LocalDateTime;
 @Table(name = "Consulta")
 public class Consulta  extends AbstractEntity<Long> {
 
-    @NotNull(message = "senhora")
+    @NotNull(message = "{NotNull.consulta.datahora}")
     @Column(nullable = false)
     private LocalDateTime dataHora;
 
-    @NotNull(message = "sem medico")
+    @NotNull(message = "{NotNull.consulta.medico}")
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "medico_id", nullable = false)
     private Medico medico;
 
-    @NotNull(message = "sem paciente")
+    @NotNull(message = "{NotNull.consulta.paciente}")
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "paciente_id", nullable = false)
     private Paciente paciente;
