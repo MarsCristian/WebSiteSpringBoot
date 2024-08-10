@@ -13,14 +13,12 @@ public class Consulta  extends AbstractEntity<Long> {
     private LocalDateTime dataHora;
 
     @NotNull(message = "sem medico")
-    @Column(nullable = false)
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "medico_id", nullable = false)
     private Medico medico;
 
     @NotNull(message = "sem paciente")
-    @Column(nullable = false)
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "paciente_id", nullable = false)
     private Paciente paciente;
 
@@ -56,7 +54,7 @@ public class Consulta  extends AbstractEntity<Long> {
     public String toString() {
         return "Consulta [id=" + getId() + ", dataHora=" + dataHora + ", medico=" + medico.getNome() + ", paciente=" + paciente.getNome() + "]";
     }
-    private void setConsultaKey() {
+    public void setConsultaKey() {
         if (this.medico != null && this.paciente != null && this.dataHora != null) {
             this.consultaKey = this.dataHora.toString() + "-" + this.medico.getCrm() + "-" + this.paciente.getCpf();
         }//DE OLHO QUANDO CPF E CRM NAO FOR STRING
@@ -65,4 +63,6 @@ public class Consulta  extends AbstractEntity<Long> {
         return consultaKey;
     }
 
+    public Consulta() {
+    }
 }

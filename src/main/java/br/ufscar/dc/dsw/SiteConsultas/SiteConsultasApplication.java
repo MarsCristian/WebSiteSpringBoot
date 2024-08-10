@@ -1,7 +1,9 @@
 package br.ufscar.dc.dsw.SiteConsultas;
 
+import br.ufscar.dc.dsw.SiteConsultas.dao.IConsultaDAO;
 import br.ufscar.dc.dsw.SiteConsultas.dao.IMedicoDAO;
 import br.ufscar.dc.dsw.SiteConsultas.dao.IPacienteDAO;
+import br.ufscar.dc.dsw.SiteConsultas.domain.Consulta;
 import br.ufscar.dc.dsw.SiteConsultas.domain.Medico;
 import br.ufscar.dc.dsw.SiteConsultas.domain.Paciente;
 import org.springframework.boot.CommandLineRunner;
@@ -9,6 +11,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+
+import java.time.LocalDateTime;
 
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
@@ -18,7 +22,7 @@ public class SiteConsultasApplication {
 		SpringApplication.run(SiteConsultasApplication.class, args);
 	}
 	@Bean
-	public CommandLineRunner demo(IMedicoDAO medicoDAO, IPacienteDAO pacienteDAO) {
+	public CommandLineRunner demo(IMedicoDAO medicoDAO, IPacienteDAO pacienteDAO, IConsultaDAO consultaDAO) {
 		return args -> {
 			Medico medico = new Medico();
 			medico.setEmail("maria@gmail.com");
@@ -37,6 +41,13 @@ public class SiteConsultasApplication {
 			paciente.setSexo("masculino");
 			paciente.setDataNascimento("08/08/2008");
 			pacienteDAO.save(paciente);
+
+			Consulta consulta = new Consulta();
+			consulta.setDataHora(LocalDateTime.now());
+			consulta.setMedico(medico);
+			consulta.setPaciente(paciente);
+			consulta.setConsultaKey();
+			consultaDAO.save(consulta);
 
 		};
 	}

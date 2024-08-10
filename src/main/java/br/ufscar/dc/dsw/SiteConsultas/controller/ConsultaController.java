@@ -6,6 +6,8 @@ package br.ufscar.dc.dsw.SiteConsultas.controller;
 import br.ufscar.dc.dsw.SiteConsultas.domain.Consulta;
 import br.ufscar.dc.dsw.SiteConsultas.service.IConsultaService;
 
+import br.ufscar.dc.dsw.SiteConsultas.service.IMedicoService;
+import br.ufscar.dc.dsw.SiteConsultas.service.IPacienteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,14 +26,22 @@ public class ConsultaController {
 
     @Autowired
     private IConsultaService service;
+    @Autowired
+    private IPacienteService pacienteService;
+    @Autowired
+    private IMedicoService medicoService;
 
     @GetMapping("/cadastrar")
-    public String cadastrar(Consulta consulta) {
+    public String cadastrar(Consulta consulta, ModelMap model) {
+        model.addAttribute("medicos", medicoService.buscarTodos());
+        model.addAttribute("pacientes", pacienteService.buscarTodos());
         return "consulta/cadastro";
     }
 
     @GetMapping("/listar")
     public String listar(ModelMap model) {
+        model.addAttribute("medicos", medicoService.buscarTodos());
+        model.addAttribute("pacientes", pacienteService.buscarTodos());
         model.addAttribute("consultas",service.buscarTodos());
         return "consulta/lista";
     }
@@ -51,6 +61,8 @@ public class ConsultaController {
     @GetMapping("/editar/{id}")
     public String preEditar(@PathVariable("id") Long id, ModelMap model) {
         model.addAttribute("consulta", service.buscarPorId(id));
+        model.addAttribute("medicos", medicoService.buscarTodos());
+        model.addAttribute("pacientes", pacienteService.buscarTodos());
         return "consulta/cadastro";
     }
 

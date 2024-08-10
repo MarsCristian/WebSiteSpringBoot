@@ -82,4 +82,7 @@ public class Medico extends AbstractEntity<Long> {
         this.nome = nome;
         this.especialidade = especialidade;
     }
+
+    public Medico() {
+    }
 }

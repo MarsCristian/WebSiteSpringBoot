@@ -48,6 +48,10 @@ public class Paciente extends AbstractEntity<Long> {
     @Column(nullable = false, length = 60)
     private String dataNascimento;
 
+    public Paciente() {
+
+    }
+
     public String getEmail() {
         return email;
     }
@@ -113,4 +117,5 @@ public class Paciente extends AbstractEntity<Long> {
         this.sexo = sexo;
         this.dataNascimento = dataNascimento;
     }
+
 }

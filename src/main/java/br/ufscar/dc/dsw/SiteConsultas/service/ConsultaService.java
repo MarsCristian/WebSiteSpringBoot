@@ -29,6 +29,7 @@ public class ConsultaService implements IConsultaService {
 
 
     public void salvar(Consulta consulta) {
+        consulta.setConsultaKey();
         dao.save(consulta);
     }
 
