@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface IPacienteService {
     Paciente buscarPorId(Long id);
+    Paciente buscarPorNome(String nome);
+    Paciente buscarPorEmail(String email);
     List<Paciente> buscarTodos();
     void salvar(Paciente paciente);
     void excluir(Long id);

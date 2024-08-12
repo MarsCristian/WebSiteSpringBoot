@@ -36,6 +36,15 @@ public class SiteConsultasApplication {
 			medico.setPapel("ROLE_Medico");
 			medicoDAO.save(medico);
 
+			Medico medico2 = new Medico();
+			medico2.setEmail("charles@gmail.com");
+			medico2.setSenha(encoder.encode("123456"));
+			medico2.setCrm("123.4567");
+			medico2.setNome("Charles");
+			medico2.setEspecialidade("Oftalmologia");
+			medico2.setPapel("ROLE_Medico");
+			medicoDAO.save(medico2);
+
 			Paciente paciente = new Paciente();
 			paciente.setEmail("sergio@gmail.com");
 			paciente.setSenha(encoder.encode("123456"));
@@ -47,12 +56,30 @@ public class SiteConsultasApplication {
 			paciente.setPapel("ROLE_Paciente");
 			pacienteDAO.save(paciente);
 
+			Paciente paciente2 = new Paciente();
+			paciente2.setEmail("pedro@mail.com");
+			paciente2.setSenha(encoder.encode("123456"));
+			paciente2.setCpf("000.000.000-01");
+			paciente2.setNome("Pedro");
+			paciente2.setTelefone("(16)99129-9169");
+			paciente2.setSexo("masculino");
+			paciente2.setDataNascimento("08/18/2001");
+			paciente2.setPapel("ROLE_Paciente");
+			pacienteDAO.save(paciente2);
+
 			Consulta consulta = new Consulta();
 			consulta.setDataHora(LocalDateTime.now());
 			consulta.setMedico(medico);
 			consulta.setPaciente(paciente);
 			consulta.setConsultaKey();
 			consultaDAO.save(consulta);
+
+//			Consulta consulta2 = new Consulta();
+//			consulta2.setDataHora(LocalDateTime.now());
+//			consulta2.setMedico(medico2);
+//			consulta2.setPaciente(paciente);
+//			consulta2.setConsultaKey();
+//			consultaDAO.save(consulta2);
 
 			Usuario adm = new Usuario();
 			adm.setEmail("admin@mail.com");

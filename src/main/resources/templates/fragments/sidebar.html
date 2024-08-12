@@ -9,10 +9,10 @@
         </a></li>
     </ul>
 
-    <div sec:authorize="hasRole('ROLE_Admin')">
+    <div >
         <ul class="nav nav-pills">
             <li class="nav-item"><span class="nav-link active" th:text="#{sidebar.titulo.medico}">Medicos</span></li>
-            <li class="nav-item"><a class="nav-link"
+            <li class="nav-item"sec:authorize="hasRole('ROLE_Admin')"><a class="nav-link"
                                     th:href="@{/medicos/cadastrar}"> <i class="oi oi-plus"></i> <span th:text="#{sidebar.link.cadastrar}">Cadastrar</span>
             </a></li>
             <li class="nav-item"><a class="nav-link"
@@ -22,13 +22,13 @@
         </ul>
     </div>
 
-    <div sec:authorize="hasRole('ROLE_Admin')">
+    <div >
         <ul class="nav nav-pills">
             <li class="nav-item"><span class="nav-link active" th:text="#{sidebar.titulo.paciente}">Pacientes</span></li>
-            <li class="nav-item"><a class="nav-link"
+            <li class="nav-item"sec:authorize="hasRole('ROLE_Admin')"><a class="nav-link"
                                     th:href="@{/pacientes/cadastrar}"> <i class="oi oi-plus"></i> <span th:text="#{sidebar.link.cadastrar}">Cadastrar</span>
             </a></li>
-            <li class="nav-item"><a class="nav-link" th:href="@{/pacientes/listar}">
+            <li class="nav-item" sec:authorize="hasAnyRole('ROLE_Admin','ROLE_Medico','ROLE_Paciente')"><a class="nav-link" th:href="@{/pacientes/listar}">
                 <i class="oi oi-spreadsheet"></i> <span th:text="#{sidebar.link.listar}">Listar</span>
             </a></li>
         </ul>

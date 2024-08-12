@@ -12,5 +12,9 @@ public interface IMedicoService {
     void salvar(Medico medico);
 
     void excluir(Long id);
+
+    Medico buscarPorNome(String nome);
+    Medico buscarPorEmail(String email);
+
     //boolean MedicoTemConsultas(Long id); CONSULTAS
 }

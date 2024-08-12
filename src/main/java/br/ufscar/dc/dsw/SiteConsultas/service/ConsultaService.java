@@ -3,6 +3,8 @@ package br.ufscar.dc.dsw.SiteConsultas.service;
 import br.ufscar.dc.dsw.SiteConsultas.dao.IConsultaDAO;
 import br.ufscar.dc.dsw.SiteConsultas.domain.Consulta;
 
+import br.ufscar.dc.dsw.SiteConsultas.domain.Medico;
+import br.ufscar.dc.dsw.SiteConsultas.domain.Paciente;
 import br.ufscar.dc.dsw.SiteConsultas.exception.HorarioDuplicadoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -24,6 +26,16 @@ public class ConsultaService implements IConsultaService {
     @Transactional(readOnly = true)
     public Consulta buscarPorId(Long id) {
         return dao.findById(id.longValue());
+    }
+
+    @Transactional(readOnly = true)
+    public List<Consulta>  buscarPorPaciente(Paciente id) {
+        return dao.findBypaciente(id);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Consulta>  buscarPorMedico(Medico id) {
+        return dao.findBymedico(id);
     }
 
     @Transactional(readOnly = true)

@@ -4,6 +4,8 @@ package br.ufscar.dc.dsw.SiteConsultas.controller;
 
 
 import br.ufscar.dc.dsw.SiteConsultas.domain.Consulta;
+import br.ufscar.dc.dsw.SiteConsultas.domain.Medico;
+import br.ufscar.dc.dsw.SiteConsultas.domain.Paciente;
 import br.ufscar.dc.dsw.SiteConsultas.exception.HorarioDuplicadoException;
 import br.ufscar.dc.dsw.SiteConsultas.service.IConsultaService;
 
@@ -11,6 +13,8 @@ import br.ufscar.dc.dsw.SiteConsultas.service.IMedicoService;
 import br.ufscar.dc.dsw.SiteConsultas.service.IPacienteService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -34,16 +38,67 @@ public class ConsultaController {
 
     @GetMapping("/cadastrar")
     public String cadastrar(Consulta consulta, ModelMap model) {
-        model.addAttribute("medicos", medicoService.buscarTodos());
-        model.addAttribute("pacientes", pacienteService.buscarTodos());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName(); // Aqui, username é o email
+
+        // Verificar se o usuário tem a role ROLE_Admin
+        boolean isAdmin = authentication.getAuthorities().stream().anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_Admin"));
+        boolean isPaciente = authentication.getAuthorities().stream().anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_Paciente"));
+        boolean isMedico = authentication.getAuthorities().stream().anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_Medico"));
+        if(isAdmin) {
+            model.addAttribute("medicos", medicoService.buscarTodos());
+            model.addAttribute("pacientes", pacienteService.buscarTodos());
+        }
+        else if(isPaciente) {
+            model.addAttribute("medicos", medicoService.buscarTodos());
+            model.addAttribute("pacientes", pacienteService.buscarPorNome(username));
+        }
+        else if(isMedico) {
+            model.addAttribute("medicos", medicoService.buscarPorNome(username));
+            model.addAttribute("pacientes", pacienteService.buscarTodos());
+        }
+
         return "consulta/cadastro";
     }
 
     @GetMapping("/listar")
     public String listar(ModelMap model) {
-        model.addAttribute("medicos", medicoService.buscarTodos());
-        model.addAttribute("pacientes", pacienteService.buscarTodos());
-        model.addAttribute("consultas",service.buscarTodos());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();// Aqui, username é o email
+
+        System.out.println(authentication.getClass());
+
+        // Verificar se o usuário tem a role ROLE_Admin
+        boolean isAdmin = authentication.getAuthorities().stream().anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_Admin"));
+        boolean isPaciente = authentication.getAuthorities().stream().anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_Paciente"));
+        boolean isMedico = authentication.getAuthorities().stream().anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_Medico"));
+
+        //Adm
+        if(isAdmin)
+        {
+            model.addAttribute("medicos", medicoService.buscarTodos());
+            model.addAttribute("pacientes", pacienteService.buscarTodos());
+            model.addAttribute("consultas",service.buscarTodos());
+        }
+        else if(isPaciente)
+        {
+            // Buscar o paciente pelo username (email)
+            Paciente paciente = pacienteService.buscarPorNome(username);
+
+            model.addAttribute("medicos", medicoService.buscarTodos());
+            model.addAttribute("pacientes", pacienteService.buscarPorNome(username));
+            model.addAttribute("consultas",service.buscarPorPaciente(paciente));
+
+        } else if (isMedico) {
+            // Buscar o paciente pelo username (email)
+            Medico medico = medicoService.buscarPorNome(username);
+
+            model.addAttribute("medicos", medicoService.buscarPorNome(username));
+            model.addAttribute("pacientes", pacienteService.buscarTodos());
+            model.addAttribute("consultas",service.buscarPorMedico(medico));
+
+        }
+
         return "consulta/lista";
     }
 

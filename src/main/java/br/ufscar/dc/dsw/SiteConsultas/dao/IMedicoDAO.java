@@ -9,6 +9,8 @@ import java.util.List;
 public interface IMedicoDAO extends CrudRepository<Medico, Long> {
     Medico findById(long id);
     Medico findBycrm(String crm);
+    Medico findByNome(String nome);
+    Medico findByEmail(String email);
     List<Medico> findAll();
     Medico save(Medico medico);
     void deleteById(Long id);

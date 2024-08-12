@@ -10,6 +10,8 @@ import org.springframework.data.repository.CrudRepository;
 public interface IPacienteDAO extends CrudRepository<Paciente, Long>{
     Paciente findById(long id);
     Paciente findBycpf(String cpf);
+    Paciente findByNome(String nome);
+    Paciente findByEmail(String email);
     List<Paciente> findAll();
     Paciente save(Paciente paciente);
     void deleteById(Long id);

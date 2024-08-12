@@ -46,12 +46,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "/index", "/error").permitAll()
                 .antMatchers("/login/**", "/js/**").permitAll()
-                // .antMatchers("/pacientes", "/medicos", "/consultas").permitAll()
                 .antMatchers("/css/**", "/image/**", "/webjars/**").permitAll()
-                // .antMatchers("/medicos/cidades/{\\w+}").permitAll()
-                // .antMatchers("/consultas/{\\d+}", "/consultas/pacientes/{\\d+}", "/consultas/medicos/{\\d+}").permitAll()
-                // .antMatchers("/consultas/listar").hasAnyRole("Locadora", "Admin", "Cliente")
-                //.antMatchers("/pacientes/**", "/medicos/**", "/consultas/**").hasRole("Admin")
+
+                .antMatchers("/medicos/cadastrar", "/pacientes/cadastrar").hasRole("Admin")
+                .antMatchers("/pacientes/listar").hasAnyRole("Admin,Medico,Paciente")
+                .antMatchers("/medicos/listar").permitAll()
+                .antMatchers("/consultas/cadastrar").hasAnyRole("Admin,Paciente")
+
+
+
+
                 .antMatchers("/pacientes", "/medicos", "/consultas").permitAll()
                 .antMatchers("/pacientes/{\\d+}", "/medicos/{\\d+}").permitAll()
                 .antMatchers("/consultas/{\\d+}").permitAll()

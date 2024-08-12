@@ -13,12 +13,12 @@ public class Consulta  extends AbstractEntity<Long> {
     private LocalDateTime dataHora;
 
     @NotNull(message = "{NotNull.consulta.medico}")
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne()
     @JoinColumn(name = "medico_id", nullable = false)
     private Medico medico;
 
     @NotNull(message = "{NotNull.consulta.paciente}")
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne()
     @JoinColumn(name = "paciente_id", nullable = false)
     private Paciente paciente;
 

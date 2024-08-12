@@ -25,6 +25,16 @@ public class UsuarioService implements IUsuarioService {
     }
 
     @Transactional(readOnly = true)
+    public Usuario buscarPorEmail(String email) {
+        return dao.findByEmail(email);
+    }
+
+    @Transactional(readOnly = true)
+    public Usuario buscarPorNome(String usuario) {
+        return dao.findByNome(usuario);
+    }
+
+    @Transactional(readOnly = true)
     public List<Usuario> buscarTodos() {
         return dao.findAll();
     }

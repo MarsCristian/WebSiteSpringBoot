@@ -6,6 +6,10 @@ import br.ufscar.dc.dsw.SiteConsultas.domain.Paciente;
 import br.ufscar.dc.dsw.SiteConsultas.service.IPacienteService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -30,7 +34,21 @@ public class PacienteController {
 
     @GetMapping("/listar")
     public String listar(ModelMap model) {
-        model.addAttribute("pacientes",service.buscarTodos());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName(); // Aqui, username é o email
+
+        // Verificar se o usuário tem a role ROLE_Admin
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_Admin"));
+
+        if (isAdmin) {
+            // Se for admin, buscar todos os pacientes
+            model.addAttribute("pacientes", service.buscarTodos());
+        } else {
+            // Se não for admin, buscar pacientes com base no nome
+            model.addAttribute("pacientes", service.buscarPorNome(username));
+        }
+
         return "paciente/lista";
     }
 
