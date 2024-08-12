@@ -25,9 +25,9 @@
 
         <div th:replace="fragments/alert"></div>
 
-        <form
-                th:action="${consulta.id == null} ? @{/consultas/salvar} : @{/consultas/editar}"
-                th:object="${consulta}" method="POST">
+        <form id="consultaForm"
+              th:action="${consulta.id == null} ? @{/consultas/salvar} : @{/consultas/editar}"
+              th:object="${consulta}" method="POST" onsubmit="addSeconds()">
 
             <div class="form-row">
 
@@ -66,9 +66,26 @@
             </div>
 
             <input type="hidden" id="id" th:field="*{id}" />
-            <button type="submit" class="btn btn-primary btn-sm" th:text="#{button.salvar.label}">Salvar</button>
+            <button id="salvarBtn" type="submit" class="btn btn-primary btn-sm" th:text="#{button.salvar.label}">Salvar</button>
         </form>
     </div>
 </section>
+
+<script>
+    function addSeconds() {
+        var dataHoraInput = document.getElementById('dataHora');
+        var dataHoraValue = dataHoraInput.value;
+
+        // Verifica se já contém os segundos
+        if (!dataHoraValue.includes(":")) {
+            dataHoraValue += ":00"; // Adiciona os segundos
+        } else if (dataHoraValue.length === 16) { // Se estiver no formato yyyy-MM-ddTHH:mm
+            dataHoraValue += ":00";
+        }
+
+        dataHoraInput.value = dataHoraValue;
+    }
+</script>
+
 </body>
 </html>

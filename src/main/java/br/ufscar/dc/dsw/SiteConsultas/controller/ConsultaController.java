@@ -4,11 +4,12 @@ package br.ufscar.dc.dsw.SiteConsultas.controller;
 
 
 import br.ufscar.dc.dsw.SiteConsultas.domain.Consulta;
+import br.ufscar.dc.dsw.SiteConsultas.exception.HorarioDuplicadoException;
 import br.ufscar.dc.dsw.SiteConsultas.service.IConsultaService;
 
 import br.ufscar.dc.dsw.SiteConsultas.service.IMedicoService;
 import br.ufscar.dc.dsw.SiteConsultas.service.IPacienteService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -48,8 +49,12 @@ public class ConsultaController {
 
     @PostMapping("/salvar")
     public String salvar(@Valid Consulta consulta, BindingResult result, RedirectAttributes attr) {
+        System.out.println(consulta.getConsultaKey());
+        System.out.println(consulta.getDataHora());
+        System.out.println(consulta.getMedico().getNome());
 
         if (result.hasErrors()) {
+            System.out.println("Erros de validação encontrados: " + result.getAllErrors());
             return "consulta/cadastro";
         }
 
@@ -73,8 +78,15 @@ public class ConsultaController {
             return "consulta/cadastro";
         }
 
-        service.salvar(consulta);
-        attr.addFlashAttribute("sucess", "consulta editado com sucesso.");
+
+        try {
+            service.salvar(consulta);
+        } catch (HorarioDuplicadoException e) {
+            result.rejectValue("dataHora", "error.consulta", e.getMessage());
+            return "consulta/cadastro";
+        }
+
+        attr.addFlashAttribute("success", "Consulta inserida com sucesso.");
         return "redirect:/consultas/listar";
     }
 

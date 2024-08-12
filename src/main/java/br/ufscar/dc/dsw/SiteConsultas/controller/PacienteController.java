@@ -4,7 +4,7 @@ package br.ufscar.dc.dsw.SiteConsultas.controller;
 
 import br.ufscar.dc.dsw.SiteConsultas.domain.Paciente;
 import br.ufscar.dc.dsw.SiteConsultas.service.IPacienteService;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -36,7 +36,7 @@ public class PacienteController {
 
     @PostMapping("/salvar")
     public String salvar(@Valid Paciente paciente, BindingResult result, RedirectAttributes attr) {
-
+       // paciente.setPapel("ROLE_Paciente");
         if (result.hasErrors()) {
             return "paciente/cadastro";
         }
@@ -54,7 +54,7 @@ public class PacienteController {
 
     @PostMapping("/editar")
     public String editar(@Valid Paciente paciente, BindingResult result, RedirectAttributes attr) {
-
+        paciente.setPapel("ROLE_Paciente");
         if (result.hasErrors()) {
             return "paciente/cadastro";
         }

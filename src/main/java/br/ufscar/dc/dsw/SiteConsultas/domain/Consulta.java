@@ -1,7 +1,7 @@
 package br.ufscar.dc.dsw.SiteConsultas.domain;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 @Entity

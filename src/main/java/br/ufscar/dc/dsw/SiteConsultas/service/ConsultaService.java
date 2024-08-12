@@ -3,10 +3,14 @@ package br.ufscar.dc.dsw.SiteConsultas.service;
 import br.ufscar.dc.dsw.SiteConsultas.dao.IConsultaDAO;
 import br.ufscar.dc.dsw.SiteConsultas.domain.Consulta;
 
+import br.ufscar.dc.dsw.SiteConsultas.exception.HorarioDuplicadoException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -30,7 +34,23 @@ public class ConsultaService implements IConsultaService {
 
     public void salvar(Consulta consulta) {
         consulta.setConsultaKey();
-        dao.save(consulta);
+        if (existeConsultaNoMesmoHorario(consulta.getMedico().getId(), consulta.getDataHora())) {
+            throw new HorarioDuplicadoException("O médico já tem uma consulta marcada para esse horário.");
+        }
+
+        try {
+            dao.save(consulta);
+        } catch (DataIntegrityViolationException e) {
+            if (e.getCause() instanceof SQLIntegrityConstraintViolationException) {
+                throw new HorarioDuplicadoException("Já existe uma consulta marcada para esse horário.");
+            } else {
+                throw e;
+            }
+        }
+    }
+
+    private boolean existeConsultaNoMesmoHorario(Long medicoId, LocalDateTime dataHora) {
+        return dao.existsByMedicoIdAndDataHora(medicoId, dataHora);
     }
 
 

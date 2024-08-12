@@ -1,55 +1,26 @@
 package br.ufscar.dc.dsw.SiteConsultas.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "Medico")
-public class Medico extends AbstractEntity<Long> {
+public class Medico extends Usuario {
 
-    @NotBlank(message = "{NotBlank.medico.email}")
-    @Size(max = 60)
-    @Column(nullable = false, length = 60)
-    private String email;
-
-    @NotBlank(message = "{NotBlank.medico.senha}")
-    @Size(max = 60)
-    @Column(nullable = false, length = 60)
-    private String senha;
 
     @NotBlank(message = "{NotBlank.medico.crm}")
     @Size(max = 60)
     @Column(nullable = false, length = 60)
     private String crm;
 
-    @NotBlank(message = "{NotBlank.medico.nome}")
-    @Size(max = 60)
-    @Column(nullable = false, length = 60)
-    private String nome;
-
     @NotBlank(message = "{NotBlank.medico.especialidade}")
     @Size(max = 60)
     @Column(nullable = false, length = 60)
     private String especialidade;
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
 
     public String getCrm() {
         return crm;
@@ -59,13 +30,6 @@ public class Medico extends AbstractEntity<Long> {
         this.crm = crm;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
     public String getEspecialidade() {
         return especialidade;
@@ -75,14 +39,11 @@ public class Medico extends AbstractEntity<Long> {
         this.especialidade = especialidade;
     }
 
-    public Medico(String email, String senha, String crm, String nome, String especialidade) {
-        this.email = email;
-        this.senha = senha;
+    public Medico(String email, String senha, String nome, String papel, String crm, String especialidade) {
+        super(email, senha, nome, papel);
         this.crm = crm;
-        this.nome = nome;
         this.especialidade = especialidade;
     }
 
-    public Medico() {
-    }
+    public Medico() {}
 }

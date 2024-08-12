@@ -107,6 +107,17 @@
                         <span th:errors="*{dataNascimento}"></span>
                     </div>
                 </div>
+                <div class="form-group col-md-6">
+                    <label for="papel" th:text="#{papel.label}"></label>
+                    <select id="papel" class="form-control" th:field="*{papel}" th:classappend="${#fields.hasErrors('papel')} ? is-invalid" autofocus="autofocus">
+                        <option value="" th:text="#{selecione.label}"></option>
+                        <option value="ROLE_Paciente" th:text="#{consulta.paciente.label}"></option>
+                        <option value="ROLE_Admin" >Admin</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        <span th:errors="*{papel}"></span>
+                    </div>
+                </div>
 
             </div>
 
