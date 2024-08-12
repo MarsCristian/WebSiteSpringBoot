@@ -112,6 +112,10 @@ public class ConsultaController {
             System.out.println("Erros de validação encontrados: " + result.getAllErrors());
             return "consulta/cadastro";
         }
+        if (consulta.getDataHora().getMinute() != 0 && consulta.getDataHora().getMinute() != 30) {
+            result.rejectValue("dataHora", "error.consulta", "00min ou 30min");
+            return "consulta/cadastro";
+        }
 
         service.salvar(consulta);
         attr.addFlashAttribute("sucess", "consulta inserido com sucesso.");

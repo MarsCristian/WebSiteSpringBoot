@@ -72,19 +72,17 @@
 </section>
 
 <script>
-    function addSeconds() {
-        var dataHoraInput = document.getElementById('dataHora');
-        var dataHoraValue = dataHoraInput.value;
+    document.getElementById('dataHora').addEventListener('input', function (e) {
+        let dateTime = e.target.value;
+        let timePart = dateTime.split('T')[1];
+        let hours = timePart.split(':')[0];
+        let minutes = timePart.split(':')[1];
 
-        // Verifica se já contém os segundos
-        if (!dataHoraValue.includes(":")) {
-            dataHoraValue += ":00"; // Adiciona os segundos
-        } else if (dataHoraValue.length === 16) { // Se estiver no formato yyyy-MM-ddTHH:mm
-            dataHoraValue += ":00";
+        if (minutes !== '00' && minutes !== '30') {
+            let newMinutes = minutes < 30 ? '00' : '30';
+            e.target.value = dateTime.split('T')[0] + 'T' + hours + ':' + newMinutes;
         }
-
-        dataHoraInput.value = dataHoraValue;
-    }
+    });
 </script>
 
 </body>
